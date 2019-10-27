@@ -1,6 +1,6 @@
 <template>
   <ul class="grid">
-  <movie-list-item li v-for="movie in movies" :movie="movie" :key="movie.imdbID" />
+  <movie-list-item li v-for="movie in movies" :movie="movie" :key="movie.imdbID" @movieSelected="movieSelected"/>
 </ul>
 </template>
  
@@ -11,6 +11,12 @@ export default {
   name: 'movie-list',
   components: {
     MovieListItem
+  },
+  methods: {
+    movieSelected(imdbID) {
+     this.$emit("movieSelected", imdbID);
+      console.log(imdbID)
+    }
   },
   props: {
     movies: {

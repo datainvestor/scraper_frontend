@@ -2,7 +2,7 @@
   <li class="movie">
     <div class="movie__image">
       <img class="movie__poster" :src="imageURL" :alt="movie.Title"/>
-      <button class="movie__more" :href="`https://www.imdb.com/title/${movie.imdbID}`" target="_blank">Add</button>
+      <button class="movie__more" @click="addList">Add</button>
     </div>
     <p class="movie__title">{{ movie.Title }}</p>
     <span class="movie__year">{{ movie.imdbID }}</span>
@@ -21,8 +21,8 @@ export default {
     }
   },
   methods: {
-    addList(event) {
-      this.$emit('clicked', this.movie.imdbID)
+    addList() {
+      this.$emit('movieSelected', this.movie.imdbID)
     }
   },
   computed: {
