@@ -1,9 +1,10 @@
 <template>
     <div>
         <header class="header">
-        <nav class="header__nav">
+        <nav class="navbar navbar-dark bg-dark">
             <ul class="header__navbar">
-            <li class="header__item">
+            <li class="header__item"> 
+            <button class="btn btn-outline-success pull-left" type="button" style="text-align: center">Main button</button>
             <a href="#" class="header__link">
                 <transition name="slide-fade">
                 <!-- Header Navigation Menu Icons -->
@@ -70,33 +71,12 @@ export default {
 }
 </script>
 
-<style>
-    :root {
-    --blue-darkest: #131C25;
-    --blue-light: #169CFC;
-    --white: #E3E4E5;
-    --grey-light: #919191;
-    --yellow: #E3B044;
-    }
 
-    html {
-    font-size: 62.5%;
-    }
-
-    body {
-    font-family: 'Lato';
-    font-weight: 400;
-    }
-</style>
 
 <style lang="scss" scoped>
-    #app {
-    min-height: 100vh;
-    padding: 2rem 4rem;
-    background-color: var(--blue-darkest);
-    @media screen and (max-width: 600px) {
-        padding: 1rem 2rem;
-    }
+    .btn-outline-success {
+        margin-right: 50px;
+        margin-bottom: 20px;
     }
 
     .header {

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-10">
         <h1>Episodes</h1>
-        <table class="table table-hover">
+        <table class="table table-striped table-dark">
           <thead>
             <tr>
               <th scope="col">Series</th>
@@ -57,7 +57,10 @@
 </script>
 
 <style scoped>
+h1 {
+    color:floralwhite;
+}
 #table1 {
-  margin-top: 60px
+  margin-top: 60px;
 }
 </style>
