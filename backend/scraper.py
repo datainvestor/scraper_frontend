@@ -70,24 +70,23 @@ def parse_and_get_df(idn):
                                      ('season', pd.Series(seasonlist)),
                                      ('number', pd.Series(epnumbers)),
                                      ('rating', pd.Series(ratings)))))
-    print(json.loads(dfx.to_json(orient='records')))
-    return json.loads(dfx.to_json(orient='records'))
 
-# def main():
-#     lines = read_in()
-#     arr = []
-#     for i in lines:
-#         arr.append(i)
-#
-#     with Pool(4) as p:
-#         dfs = p.map(parse_and_get_df, arr)
-#
-#     # dfs = list(parse_and_get_df(idn) for idn in arr)
-#     df = pd.concat(dfs)
-#     df = df.reset_index()
-#
-#     print(df.to_json(orient='index'))
+    # print(json.loads(dfx.to_json(orient='records')))
+    # return json.loads(dfx.to_json(orient='records'))
+    return dfx
+
+def main_df(arr):
+
+    with Pool(4) as p:
+        dfs = p.map(parse_and_get_df, arr)
+
+    # dfs = list(parse_and_get_df(idn) for idn in arr)
+    df = pd.concat(dfs)
+    df = df.reset_index()
+
+    print(json.loads(df.to_json(orient='records')))
+    return json.loads(df.to_json(orient='records'))
 
 
 if __name__ == '__main__':
-    print(parse_and_get_df())
+    print(main_df())

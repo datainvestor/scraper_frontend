@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-sm-10">
         <h1>Episodes</h1>
+          <button type="button" class="btn btn-primary btn-lg btn-block" @click="$router.go(-1)">Back</button>
         <table class="table table-striped table-dark">
           <thead>
             <tr>
@@ -32,6 +33,8 @@
   import axios from 'axios';
 
   export default {
+      name:"Table",
+      props: ['items'],
       data() {
       return {
         episodes: [],
@@ -40,7 +43,8 @@
     methods: {
     getEps() {
       const path = 'http://localhost:5000/parse';
-      axios.get(path)
+      console.log(this.items)
+      axios.post(path, {lst: this.items})
         .then((res) => {
           this.episodes = res.data.episodes;
         })

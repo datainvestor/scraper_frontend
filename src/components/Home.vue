@@ -3,8 +3,8 @@
         <header class="header">
         <nav class="navbar navbar-dark bg-dark">
             <ul class="header__navbar">
-            <li class="header__item"> 
-            <button class="btn btn-outline-success pull-left" type="button" style="text-align: center">Main button</button>
+                <button class="btn btn-outline-success pull-left" type="button" style="text-align: center" @click="passData" :disabled="picked.length==0">Parse</button>
+
             <a href="#" class="header__link">
                 <transition name="slide-fade">
                 <!-- Header Navigation Menu Icons -->
@@ -30,7 +30,6 @@
                 </ul>
                 </div>
             </transition>
-            </li>
             </ul>
         </nav>
     </header>
@@ -44,6 +43,7 @@
 import Search from './Search'
 import MovieList from './MovieList'
 import PickedList from "./PickedList"
+import router   from   "../router"
 
 export default {
     name: 'home',
@@ -56,9 +56,14 @@ export default {
     return {
       show:false,
       movies: [],
-      picked:["Avengers", "Star Wars", "Pokemon"]
+      picked:[]
     }
   },
+    computed: {
+      isDisabled() {
+          return this.picked == []
+      }
+    },
   methods: {
     changeMovieResults (results) {
       this.movies = results
@@ -66,6 +71,15 @@ export default {
     movieSelected(imdbID) {
       this.picked.push(imdbID);
       console.log(this.picked)
+    },
+    passData(data) {
+        data= this.picked
+        router.push({
+            name: 'Table',
+            params: {
+                items: data
+            }
+        });
     }
   }
 }
@@ -75,8 +89,6 @@ export default {
 
 <style lang="scss" scoped>
     .btn-outline-success {
-        margin-right: 50px;
-        margin-bottom: 20px;
     }
 
     .header {

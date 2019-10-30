@@ -1,5 +1,5 @@
-from flask import Flask, jsonify
-from scraper import parse_and_get_df
+from flask import Flask, jsonify, request
+from scraper import parse_and_get_df, main_df
 from flask_cors import CORS
 
 # configuration
@@ -13,13 +13,16 @@ app.config.from_object(__name__)
 CORS(app, resources={r'/*': {'origins': '*'}})
 
 
-@app.route('/parse', methods=['GET'])
+@app.route('/parse', methods=['POST'])
 def show_episodes():
+    requestJson = request.get_json(force=True)["lst"]
+    print(requestJson)
     return jsonify({
         'status': 'success',
-        'episodes': parse_and_get_df('tt0903747')
+        'episodes': main_df(requestJson)
     })
 
 
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, port=5000)

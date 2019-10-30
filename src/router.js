@@ -12,11 +12,13 @@ export default new Router({
         path: '/',
         name: 'Home',
         component: Home,
+        props: true
       },
       {
         path: '/result',
         name: 'Table',
         component: Table,
+        props: true
       }
     ],
   });
