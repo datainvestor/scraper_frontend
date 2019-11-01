@@ -4,26 +4,35 @@
       <div class="col-sm-10">
         <h1>Episodes</h1>
           <button type="button" class="btn btn-primary btn-lg btn-block" @click="$router.go(-1)">Back</button>
-        <table class="table table-striped table-dark">
-          <thead>
-            <tr>
-              <th scope="col">Series</th>
-              <th scope="col">Name</th>
-              <th scope="col">Season</th>
-              <th scope="col">Number</th>
-              <th scope="col">Rating</th>
-            </tr>
-          </thead>
-          <tbody>
-             <tr v-for="(ep, index) in episodes" :key="index">
-              <td>{{ep.series}}</td>
-              <td>{{ep.name}}</td>
-              <td>{{ep.season}}</td>
-              <td>{{ep.number}}</td>
-              <td>{{ep.rating}}</td>
-            </tr>
-          </tbody>
-        </table>
+          <section v-if="errored">
+            <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
+          </section>
+
+          <section v-else>
+              <div v-if="loading">Loading...</div>
+              <div v-else>
+                <table class="table table-striped table-dark">
+                  <thead>
+                    <tr>
+                      <th scope="col">Series</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Season</th>
+                      <th scope="col">Number</th>
+                      <th scope="col">Rating</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     <tr v-for="(ep, index) in episodes" :key="index">
+                      <td>{{ep.series}}</td>
+                      <td>{{ep.name}}</td>
+                      <td>{{ep.season}}</td>
+                      <td>{{ep.number}}</td>
+                      <td>{{ep.rating}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+               </div>
+          </section>
       </div>
     </div>
   </div>
@@ -37,7 +46,9 @@
       props: ['items'],
       data() {
       return {
-        episodes: [],
+          episodes: [],
+          loading: true,
+          errored: false
       };
     },
     methods: {
