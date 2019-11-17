@@ -6,22 +6,22 @@
  
 <script>
 import MovieListItem from './MovieListItem'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'movie-list',
   components: {
     MovieListItem
   },
+  computed: {
+  ...mapGetters([
+    'movies'
+    ])
+  },
   methods: {
     movieSelected(imdbID) {
      this.$emit("movieSelected", imdbID);
       console.log(imdbID)
-    }
-  },
-  props: {
-    movies: {
-      type: Array,
-      required: true
     }
   }
 }

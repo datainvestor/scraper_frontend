@@ -10,6 +10,7 @@
 
 <script>
 import axios from 'axios'
+import { mapActions } from 'vuex'
 const BASE_URL = `https://www.omdbapi.com/?apikey=${process.env.VUE_APP_OMDB_KEY}`
 export default {
   name: 'search',
@@ -20,13 +21,17 @@ export default {
     }
   },
   methods: {
+    ...mapActions([ 
+    'updateArray'
+       ]),
     async search () {
       let response = await axios.get(`${BASE_URL}&s=${this.searchQuery}&type=series`)
       if (response.status === 200) {
         let data = response.data
         if (data.Response === 'True') {
             this.error = ''
-          return this.$emit('search', data.Search)
+            console.log(data.Search)
+          this.updateArray(data.Search)
         }
         this.error = data.Error
       }
