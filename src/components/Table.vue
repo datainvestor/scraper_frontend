@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-10">
         <h1>Episodes</h1>
-          <button type="button" class="btn btn-primary btn-lg btn-block" @click="$router.go(-1)">Back</button>
+          <button type="button" class="btn btn-primary btn-lg btn-block" @click="bar">Back</button>
           <section v-if="errored">
             <h2>We're sorry, we're not able to retrieve this information at the moment, please try back later</h2>
           </section>
@@ -45,7 +45,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import axios from 'axios'
+  import { mapActions } from 'vuex'
 
   export default {
       name:"Table",
@@ -60,6 +61,9 @@
       };
     },
     methods: {
+   ...mapActions([
+    'updateArray'
+       ]),
     getEps() {
       const path = 'http://localhost:5000/parse';
       console.log(this.items)
@@ -80,19 +84,24 @@
         this.currentSortDir = this.currentSortDir==='asc'?'desc':'asc';
       }
       this.currentSort = s;
-  }
-  },
-  created() {
-    this.getEps();
-  },
-  computed:{
-    sortedEps:function() {
-      return this.episodes.slice().sort((a,b) => {
-        let modifier = 1;
-        if(this.currentSortDir === 'desc') modifier = -1;
-        if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
-        if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
-        return 0;
+      },
+        bar () {
+           this.$router.go(-1)
+            this.$store.dispatch('updateArray',[]);
+        }
+      },
+      created() {
+        this.getEps();
+      },
+      computed:{
+
+        sortedEps:function() {
+          return this.episodes.slice().sort((a,b) => {
+            let modifier = 1;
+            if(this.currentSortDir === 'desc') modifier = -1;
+            if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;
+            if(a[this.currentSort] > b[this.currentSort]) return 1 * modifier;
+            return 0;
       });
     }
   }

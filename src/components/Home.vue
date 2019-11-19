@@ -55,7 +55,6 @@ export default {
   data () {
     return {
       show:false,
-      movies: [],
       picked:[]
     }
   },
@@ -65,9 +64,6 @@ export default {
       }
     },
   methods: {
-    changeMovieResults (results) {
-      this.movies = results
-    },
     movieSelected(imdbID) {
       this.picked.push(imdbID);
       console.log(this.picked)
