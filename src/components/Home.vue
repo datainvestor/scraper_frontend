@@ -3,7 +3,7 @@
         <header class="header">
         <nav class="navbar navbar-dark bg-dark">
             <ul class="header__navbar">
-                <button class="btn btn-outline-success pull-left" type="button" style="text-align: center" @click="passData" :disabled="picked.length==0">Parse</button>
+                <button class="btn btn-outline-success pull-left" type="button" style="text-align: center" @click="passData" :disabled="pickedList.length==0">Parse</button>
 
             <a href="#" class="header__link">
                 <transition name="slide-fade">
@@ -26,7 +26,7 @@
             <transition name="dropdown">
                 <div class="dropdown__menu" v-bind:class="{ active: show }" v-if="show">
                 <ul class="dropdown__menu-nav">
-                    <picked-list v-for="pick in picked" :pick="pick" :key="pick"></picked-list>
+                    <picked-list v-for="pick in pickedList" :pick="pick" :key="pick"></picked-list>
                 </ul>
                 </div>
             </transition>
@@ -35,7 +35,7 @@
     </header>
 
     <search @search="changeMovieResults"></search>
-    <movie-list :movies="movies" @movieSelected="movieSelected"></movie-list>
+    <movie-list :movies="movies"></movie-list>
     </div>
 </template>
 
@@ -44,6 +44,7 @@ import Search from './Search'
 import MovieList from './MovieList'
 import PickedList from "./PickedList"
 import router   from   "../router"
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'home',
@@ -54,28 +55,27 @@ export default {
   },
   data () {
     return {
-      show:false,
-      picked:[]
+      show:false
     }
   },
     computed: {
-      isDisabled() {
-          return this.picked == []
-      }
+        ...mapGetters([
+        'pickedList'
+        ])
     },
   methods: {
-    movieSelected(imdbID) {
-      this.picked.push(imdbID);
-      console.log(this.picked)
-    },
+        ...mapActions([
+    'updateList'
+       ]),
     passData(data) {
-        data= this.picked
+        data= this.pickedList
         router.push({
             name: 'Table',
             params: {
                 items: data
             }
-        });
+        })
+        this.$store.dispatch('resetList',[]);
     }
   }
 }

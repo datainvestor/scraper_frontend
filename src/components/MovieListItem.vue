@@ -11,6 +11,7 @@
  
 <script>
 import unknownImage from '@/assets/unknown.jpg'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'movie-list-item',
@@ -21,8 +22,11 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+        'updateList'
+       ]),
     addList() {
-      this.$emit('movieSelected', this.movie.imdbID)
+      this.updateList(this.movie.imdbID)
     }
   },
   computed: {

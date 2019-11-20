@@ -1,6 +1,6 @@
 <template>
   <ul class="grid">
-  <movie-list-item li v-for="movie in movies" :movie="movie" :key="movie.imdbID" @movieSelected="movieSelected"/>
+  <movie-list-item li v-for="movie in movies" :movie="movie" :key="movie.imdbID"/>
 </ul>
 </template>
  
@@ -17,12 +17,6 @@ export default {
   ...mapGetters([
     'movies'
     ])
-  },
-  methods: {
-    movieSelected(imdbID) {
-     this.$emit("movieSelected", imdbID);
-      console.log(imdbID)
-    }
   }
 }
 </script>
