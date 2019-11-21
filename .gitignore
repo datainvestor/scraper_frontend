@@ -24,3 +24,5 @@ yarn-error.log*
 /backend/venv/
 
 __pycache__
+# Local Netlify folder
+.netlify
