@@ -66,7 +66,6 @@
        ]),
     getEps() {
       const path = 'http://localhost:5000/parse';
-      console.log(this.items)
       axios.post(path, {lst: this.items})
         .then((res) => {
           this.episodes = res.data.episodes;

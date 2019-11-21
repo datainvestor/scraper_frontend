@@ -30,7 +30,6 @@ export default {
         let data = response.data
         if (data.Response === 'True') {
             this.error = ''
-            console.log(data.Search)
           this.updateArray(data.Search)
         }
         this.error = data.Error
