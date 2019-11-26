@@ -65,7 +65,7 @@
     'updateArray'
        ]),
     getEps() {
-      const path = 'http://localhost:5000/parse';
+      const path = process.env.VUE_APP_FLASK_HOST
       axios.post(path, {lst: this.items})
         .then((res) => {
           this.episodes = res.data.episodes;
